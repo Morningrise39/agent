@@ -7,8 +7,11 @@ def get_files_info(working_directory: str, directory: str = ".") -> str:
         valid_target_dir = os.path.commonpath([working_dir_abs, target_dir]) == working_dir_abs
         if not valid_target_dir:
             raise Exception(f'Cannot list "{directory}" as it is outside the permitted working directory')
-        if not os.path.isdir(directory):
+        if not os.path.isdir(target_dir):
             raise Exception(f'"{directory}" is not a directory')
-        print(f'Success: "{directory}" is within the working directory')
+        print(f"Result for {directory} directory:")
+        for item in os.listdir(target_dir):
+            print(f"- {item}: file_size={os.path.getsize(target_dir+"/"+item)}, is_dir={os.path.isdir(target_dir+"/"+item)}")
+        #print(f'Success: "{directory}" is within the working directory')
     except Exception as e:
         print(f"Error: {e}")
